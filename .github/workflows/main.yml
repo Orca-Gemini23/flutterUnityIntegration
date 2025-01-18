@@ -1,32 +1,29 @@
-name: Install Unity
+name: Unity Build with Docker
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch: # Allows manual triggering of the workflow
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  install-unity:
-    name: Setup Unity Editor
+  unity-build:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Step 2: Cache Unity installation for faster builds
-      - name: Cache Unity
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/unity3d
-          key: ${{ runner.os }}-unity-${{ hashFiles('**/ProjectSettings/ProjectVersion.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-unity-
-
-      # Step 3: Install Unity using game-ci
-      - name: Install Unity
+      # Step 1: Set up Unity using Docker
+      - name: Set up Unity
         uses: game-ci/unity-builder@v2
         with:
-          unityVersion: 2022.3.47f1 # Replace with your Unity version
+          unityVersion: '2021.3.10f1' # Replace with your Unity version
+          targetPlatform: 'Android'  # Replace with your target platform
+
+      # Step 2: Build Unity Project
+      - name: Build Unity Project
+        run: |
+          unity-editor -quit -batchmode -projectPath ${{ github.workspace }} -executeMethod MyEditorScript.BuildAndroid
