@@ -1,29 +1,27 @@
-name: Unity Build with Docker
+name: Install Unity
 
 on:
   push:
     branches:
-      - main
+      - main  # Trigger this workflow on push to main branch
   pull_request:
     branches:
-      - main
+      - main  # Trigger this workflow on PR to main branch
 
 jobs:
-  unity-build:
-    runs-on: ubuntu-latest
+  unity-installation:
+    runs-on: ubuntu-latest  # You can change this to 'windows-latest' or 'macos-latest' based on your need
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Step 1: Set up Unity using Docker
       - name: Set up Unity
-        uses: game-ci/unity-builder@v2
+        uses: game-ci/unity-action@v2
         with:
-          unityVersion: '2022.3.47f1' # Replace with your Unity version
-          targetPlatform: 'Android'  # Replace with your target platform
+          version: '2021.3.10f1'  # Replace with your desired Unity version
+          activation: 'none'  # No license activation (use 'serial' or 'manual' for Unity Pro)
 
-      # Step 2: Build Unity Project
-      - name: Build Unity Project
+      - name: Verify Unity installation
         run: |
-          unity-editor -quit -batchmode -projectPath ${{ github.workspace }} -executeMethod MyEditorScript.BuildAndroid
+          unity-editor -version
