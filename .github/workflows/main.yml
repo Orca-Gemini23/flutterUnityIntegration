@@ -1,0 +1,32 @@
+name: Install Unity
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Allows manual triggering of the workflow
+
+jobs:
+  install-unity:
+    name: Setup Unity Editor
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Cache Unity installation for faster builds
+      - name: Cache Unity
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/unity3d
+          key: ${{ runner.os }}-unity-${{ hashFiles('**/ProjectSettings/ProjectVersion.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-unity-
+
+      # Step 3: Install Unity using game-ci
+      - name: Install Unity
+        uses: game-ci/unity-builder@v2
+        with:
+          unityVersion: 2021.3.10f1 # Replace with your Unity version
