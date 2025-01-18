@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main  # Trigger this workflow on push to the main branch
-  pull_request:
+  pull_request: 
     branches:
       - main  # Trigger this workflow on PR to the main branch
 
