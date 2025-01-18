@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 # WALK
 
@@ -52,3 +53,6 @@ provider => This library also plays a major role in managing the state of the ap
 This application is also equipped with CI/CD script . CI/CD script is run with gitlab runners , which are nothing but services that run in the local system (usually in the ones where development happens).The builds and deployement are handled by this script only along with [Fastlane](https://fastlane.tools/)
 The configuration and the stages are defined in the .gitlab-ci.yml .
 Stages are similar to function that have multiple steps defined for that .For more detailed description on Gitlab CICD [Link to Document](https://docs.gitlab.com/runner/). 
+=======
+# UnitybuildIntegration
+>>>>>>> c029931500e04a4e362b4783f5d187b72998f0c2
