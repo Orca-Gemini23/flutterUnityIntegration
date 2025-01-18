@@ -3,25 +3,25 @@ name: Install Unity
 on:
   push:
     branches:
-      - main  # Trigger this workflow on push to main branch
+      - main  # Trigger this workflow on push to the main branch
   pull_request:
     branches:
-      - main  # Trigger this workflow on PR to main branch
+      - main  # Trigger this workflow on PR to the main branch
 
 jobs:
   unity-installation:
-    runs-on: ubuntu-latest  # You can change this to 'windows-latest' or 'macos-latest' based on your need
+    runs-on: ubuntu-latest  # You can change this to 'windows-latest' or 'macos-latest' based on your needs
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Set up Unity
-        uses: game-ci/unity-action@v2
+        uses: game-ci/unity-builder@v2  # This is the correct action to install Unity
         with:
-          version: '2022.3.47f1'  # Replace with your desired Unity version
-          activation: 'none'  # No license activation (use 'serial' or 'manual' for Unity Pro)
+          version: '2021.3.10f1'  # Replace with your desired Unity version
+          activation: 'none'  # No license activation for Unity Personal
 
       - name: Verify Unity installation
         run: |
-          unity-editor -version
+          unity-editor -version  # This will verify the installed Unity version
